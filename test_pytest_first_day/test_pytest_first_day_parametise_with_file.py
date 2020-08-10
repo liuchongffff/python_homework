@@ -4,7 +4,18 @@ import yaml
 
 from test_pytest_first_day.calc import Calculator
 
+def setup_module():
+    i_calc = Calculator()
+    print("pytest module begin")
 
+def teardown_module():
+    print("pytest module teardown end")
+
+def setup_function():
+    print("pytest function setup begin")
+
+def teardown_function():
+    print("pytest function teardown end")
 
 """
 #通过定义一个yaml文件，保存相关的文件内容：
@@ -33,7 +44,6 @@ with open('./calc.yaml') as f:
 @pytest.mark.add
 @pytest.mark.parametrize('a,b,expect',add_datas,ids=["test_add1","test_add2","test_add3","test_add4","test_add5","test_add6"])
 def test_add(a,b,expect):
-    i_calc = Calculator()
     result = i_calc.add(a,b)
     if isinstance(result,float):
         result = round(result, 2)
@@ -44,7 +54,6 @@ def test_add(a,b,expect):
 @pytest.mark.para_div
 @pytest.mark.parametrize('a,b,expect',div_datas,ids=["test_div1","test_div2","test_div3","test_div4","test_div5","test_div6"])
 def test_div(a,b,expect):
-    i_calc = Calculator()
     try:
         result = i_calc.div(a,b)
         if isinstance(result, float):
